@@ -53,9 +53,11 @@ html #folderTree li[data-server-type] > .container > .name {
 
 /* Unread badge — natural size (Thunderbird's built-in 0.85em)
    Original: .unread > .container > .unread-count { font-size: 1.01rem !important; }
-   Override: #folderTree .unread (1-2-0) beats .unread (0-2-0) */
-#folderTree .unread > .container > .unread-count {
-	font-size: unset !important;
+   Override: #folderTree .unread-count (1-2-0) beats .unread .unread-count (0-2-0)
+   Also covers the folder-count-badge class used in newer TB builds */
+#folderTree .unread > .container > .unread-count,
+#folderTree .folder-count-badge.unread-count {
+	font-size: 0.85em !important;
 }
 
 /* Tab shadow — disable on Linux (no Mica, shadow looks wrong on solid backgrounds)
@@ -64,6 +66,74 @@ html #folderTree li[data-server-type] > .container > .name {
    Applied globally — covers both light and dark mode rules in userChrome.css */
 window .tabmail-tab[selected="true"] {
 	box-shadow: none !important;
+}
+
+/* Message header toolbar buttons — match card/tab radius (6px), remove borders
+   FluentBird sets border-color but no border-radius.
+   Higher specificity (html/window prefix) to override FluentBird's border-color !important */
+html #messageHeader:not(.message-header-buttons-only-icons) .toolbarbutton-1.message-header-view-button:not([is="toolbarbutton-menu-button"]) {
+	border-radius: 6px !important;
+	border: none !important;
+}
+
+window #hdrReplyAllButton .toolbarbutton-menubutton-button,
+window #hdrReplyAllButton .toolbarbutton-menubutton-dropmarker,
+window #hdrReplyListButton .toolbarbutton-menubutton-button,
+window #hdrReplyListButton .toolbarbutton-menubutton-dropmarker,
+window #hdrReplyListButton {
+	border-radius: 6px !important;
+	border: none !important;
+}
+
+#otherActionsButton {
+	border-radius: 6px !important;
+	border: none !important;
+}
+
+#starMessageButton {
+	border-radius: 6px !important;
+	border: none !important;
+}
+
+#threadPaneQuickFilterButton {
+	border-radius: 6px !important;
+	border: none !important;
+}
+
+/* Quick filter bar — match theme (6px radius, no borders) */
+#qfb-sticky {
+	border-radius: 6px !important;
+	border: none !important;
+}
+
+#qfb-qs-textbox {
+	border-radius: 6px !important;
+	border: none !important;
+	--search-bar-border-color: transparent;
+	--search-focus-outline-color: #5aa4ef;
+	--search-outline-offset: -1px;
+}
+
+#qfd-dropdown {
+	border-radius: 6px !important;
+	border: none !important;
+}
+
+.quickFilterButtons {
+	border: none !important;
+}
+
+.quickFilterButtons .button {
+	border-radius: 0 !important;
+	border: none !important;
+}
+
+.quickFilterButtons .button:first-child {
+	border-radius: 6px 0 0 6px !important;
+}
+
+.quickFilterButtons .button:last-child {
+	border-radius: 0 6px 6px 0 !important;
 }
 
 /* ===== LIGHT MODE OVERRIDES ===== */
@@ -104,6 +174,20 @@ window .tabmail-tab[selected="true"] {
 
 	global-search-bar {
 		opacity: 1 !important;
+	}
+
+	#qfb-qs-textbox {
+		--search-bar-color: #3b3b3b;
+		--search-bar-background: #f0f0f0;
+		--search-bar-focus-background: #e8e8e8;
+		--search-field-placeholder: color-mix(in srgb, #3b3b3b 50%, transparent);
+	}
+
+	#qfb-sticky,
+	#qfd-dropdown,
+	#threadPaneQuickFilterButton,
+	.quickFilterButtons .button {
+		background-color: #f0f0f0 !important;
 	}
 
 	.unread > .container > .unread-count {
@@ -234,6 +318,27 @@ window .tabmail-tab[selected="true"] {
 
 	global-search-bar {
 		opacity: 1 !important;
+	}
+
+	#qfb-qs-textbox {
+		--search-bar-color: #d4d4d4;
+		--search-bar-background: #2b2b2b;
+		--search-bar-focus-background: #333333;
+		--search-field-placeholder: color-mix(in srgb, #d4d4d4 50%, transparent);
+	}
+
+	#qfb-sticky,
+	#qfd-dropdown,
+	#threadPaneQuickFilterButton,
+	.quickFilterButtons .button {
+		background-color: #343434 !important;
+	}
+
+	#qfb-qs-textbox {
+		--search-bar-color: #d4d4d4;
+		--search-bar-background: #343434;
+		--search-bar-focus-background: #3c3c3c;
+		--search-field-placeholder: color-mix(in srgb, #d4d4d4 50%, transparent);
 	}
 
 	.unread > .container > .unread-count {
