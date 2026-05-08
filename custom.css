@@ -27,6 +27,40 @@
 	font-size: 1rem !important;
 }
 
+#folderTree li.unselectable > .container,
+#folderTree li.unselectable > .mode-container {
+	border: none !important;
+}
+
+#folderTree li[data-mode] {
+	margin-block-end: 2.2rem !important;
+}
+
+/* Thread pane — remove top border */
+#threadTree {
+	border-top: none !important;
+}
+
+/* Thread pane header bar — tighter top padding */
+.list-header-bar:not([hidden]) {
+	padding-top: 0.6rem !important;
+}
+
+/* Quick filter bar — remove border */
+#quick-filter-bar {
+	border: none !important;
+}
+
+/* Folder pane splitter — remove border */
+#folderPaneSplitter {
+	border: none !important;
+}
+
+/* Message pane splitter — remove border */
+#messagePaneSplitter {
+	border: none !important;
+}
+
 /* Thread card — tighter row spacing (sender row <-> subject row) */
 :root {
 	--thread-pane-container-gap: 1px !important;
@@ -160,7 +194,11 @@ window #hdrReplyListButton {
 		background-color: #f0f0f0 !important;
 	}
 
-	#folderPane {
+	html #folderPane {
+		background-color: #f0f0f0 !important;
+	}
+
+	html #folderTree {
 		background-color: #f0f0f0 !important;
 	}
 
@@ -304,8 +342,12 @@ window #hdrReplyListButton {
 		background-color: #2b2b2b !important;
 	}
 
-	#folderPane {
-		background-color: #2b2b2b !important;
+	html #folderPane {
+		background-color: #27272a !important;
+	}
+
+	html #folderTree {
+		background-color: #27272a !important;
 	}
 
 	#messengerBox {
