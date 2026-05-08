@@ -66,11 +66,7 @@
 	--thread-pane-container-gap: 1px !important;
 }
 
-/* Thread card — smaller subject line
-   Higher specificity (1-1-0) to override FluentBird's .thread-card-subject-container (0-1-0) !important */
-#threadTree .thread-card-subject-container {
-	font-size: 0.82rem !important;
-}
+
 
 /* ===== FLUENTBIRD OVERRIDES =====
    These selectors use higher specificity than FluentBird's original rules
