@@ -1,1 +1,327 @@
-/* CUSTOM CSS - PLACE YOUR CUSTOM OVERRIDES BELOW */
+/* CUSTOM CSS — FLUENTBIRD LINUX OVERRIDES
+   Replaces all semi-transparent/transparent backgrounds with solid colors
+   since Linux has no Mica/transparency support.
+   Uses @media (prefers-color-scheme) for auto-detect light/dark mode.
+   Additional: card radius, folder font, thread card spacing, unread indicators,
+   Today pane styling.
+
+   NOTE: This file loads BEFORE userChrome.css (via @import at line 14).
+   Rules that override FluentBird's !important declarations use HIGHER SPECIFICITY
+   selectors to win the cascade despite loading first.
+   See "FLUENTBIRD OVERRIDES" section below. */
+
+/* ===== GLOBAL — APPLIES TO BOTH MODES ===== */
+
+/* Main content area — remove 90% opacity */
+#messengerBody {
+	opacity: 1 !important;
+}
+
+/* Inbox email cards — rounded corners matching tab radius */
+.card-container {
+	border-radius: 6px !important;
+}
+
+/* Folder pane — uniform font size */
+#folderTree {
+	font-size: 1rem !important;
+}
+
+/* Thread card — tighter row spacing (sender row <-> subject row) */
+:root {
+	--thread-pane-container-gap: 1px !important;
+}
+
+/* Thread card — smaller subject line
+   Higher specificity (1-1-0) to override FluentBird's .thread-card-subject-container (0-1-0) !important */
+#threadTree .thread-card-subject-container {
+	font-size: 0.82rem !important;
+}
+
+/* ===== FLUENTBIRD OVERRIDES =====
+   These selectors use higher specificity than FluentBird's original rules
+   because custom.css loads before userChrome.css in the cascade.
+   For same-specificity !important vs !important, the later file wins.
+   Adding an ancestor selector bumps specificity so our rules win regardless. */
+
+/* Account row font — inherit uniform folder pane size
+   Original: #folderTree li[data-server-type] > .container > .name { font-size: 1.18rem !important; }
+   Override: html #folderTree (1-1-2) beats #folderTree (1-0-0) */
+html #folderTree li[data-server-type] > .container > .name {
+	font-size: inherit !important;
+}
+
+/* Unread badge — natural size (Thunderbird's built-in 0.85em)
+   Original: .unread > .container > .unread-count { font-size: 1.01rem !important; }
+   Override: #folderTree .unread (1-2-0) beats .unread (0-2-0) */
+#folderTree .unread > .container > .unread-count {
+	font-size: unset !important;
+}
+
+/* Tab shadow — disable on Linux (no Mica, shadow looks wrong on solid backgrounds)
+   Original: .tabmail-tab[selected="true"] { box-shadow: 0 2px 8px -5px #9c9c9c !important; }
+   Override: window .tabmail-tab (0-2-0) beats .tabmail-tab (0-1-0)
+   Applied globally — covers both light and dark mode rules in userChrome.css */
+window .tabmail-tab[selected="true"] {
+	box-shadow: none !important;
+}
+
+/* ===== LIGHT MODE OVERRIDES ===== */
+@media (prefers-color-scheme: light) {
+
+	:root {
+		--lwt-accent-color: #ffffff !important;
+		background-color: #ffffff !important;
+	}
+
+	#tabs-toolbar {
+		background-color: #ffffff !important;
+	}
+
+	#navigation-toolbox {
+		background-color: #ffffff !important;
+	}
+
+	.tab-background[selected="true"] {
+		background-color: #ffffff !important;
+	}
+
+	#spacesToolbar {
+		background-color: #f0f0f0 !important;
+	}
+
+	#folderPane {
+		background-color: #f0f0f0 !important;
+	}
+
+	#messengerBox {
+		background-color: #ffffff !important;
+	}
+
+	#threadPane {
+		background-color: #ffffff !important;
+	}
+
+	global-search-bar {
+		opacity: 1 !important;
+	}
+
+	.unread > .container > .unread-count {
+		background-color: #71717a !important;
+		color: #ffffff !important;
+	}
+
+	.settings-btn-container #settingsButton,
+	.settings-btn-container:hover #settingsButton {
+		color: #5b5b5b !important;
+	}
+
+	.tab-icon-image {
+		stroke: none !important;
+	}
+
+	.infobar.animated:not([value="maybeScam"]) .notification-button.small-button.footer-button.button-menu-list {
+		background-color: #e6f2fa !important;
+	}
+
+	/* ===== TODAY PANE — LIGHT MODE ===== */
+
+	#today-pane-panel {
+		background-color: #f0f0f0 !important;
+		border-left: 1px solid #d4d4d4 !important;
+	}
+
+	#today-pane-panel .sidebar-header {
+		background-color: #e8e8e8 !important;
+		border-bottom: 1px solid #d4d4d4 !important;
+		padding: 4px 8px !important;
+	}
+
+	#today-pane-header {
+		color: #3b3b3b !important;
+		font-weight: 500 !important;
+	}
+
+	.today-pane-cycler {
+		border-radius: 4px !important;
+		padding: 2px 4px !important;
+	}
+
+	.today-pane-cycler:hover {
+		background-color: #d4d4d4 !important;
+	}
+
+	#today-closer {
+		border-radius: 4px !important;
+	}
+
+	#today-closer:hover {
+		background-color: #d4d4d4 !important;
+	}
+
+	.today-subpane {
+		border-radius: 6px !important;
+		margin: 4px !important;
+		padding: 6px !important;
+		background-color: #ffffff !important;
+		border: 1px solid #e0e0e0 !important;
+	}
+
+	#today-minimonth-box {
+		border-radius: 6px !important;
+		margin: 4px !important;
+		padding: 6px !important;
+		background-color: #ffffff !important;
+		border: 1px solid #e0e0e0 !important;
+	}
+
+	#agenda-panel {
+		background-color: transparent !important;
+	}
+
+	#agenda-panel .agenda-listitem {
+		border-radius: 6px !important;
+		padding: 4px 6px !important;
+		margin: 2px 0 !important;
+	}
+
+	#agenda-panel .agenda-listitem:hover {
+		background-color: #e6f2fa !important;
+	}
+
+	/* Unread card — subtle blue tint */
+	.card-layout[data-properties~="unread"] .card-container {
+		background-color: #e8effa !important;
+		border-color: #ccd8ec !important;
+	}
+}
+
+/* ===== DARK MODE OVERRIDES ===== */
+@media (prefers-color-scheme: dark) {
+
+	:root {
+		--lwt-accent-color: #1c1c1c !important;
+		background-color: #1c1c1c !important;
+	}
+
+	#tabs-toolbar {
+		background-color: #1c1c1c !important;
+	}
+
+	#navigation-toolbox {
+		background-color: #1c1c1c !important;
+	}
+
+	.tab-background[selected="true"] {
+		background-color: #2b2b2b !important;
+	}
+
+	#spacesToolbar {
+		background-color: #2b2b2b !important;
+	}
+
+	#folderPane {
+		background-color: #2b2b2b !important;
+	}
+
+	#messengerBox {
+		background-color: #1c1c1c !important;
+	}
+
+	#threadPane {
+		background-color: #1c1c1c !important;
+	}
+
+	global-search-bar {
+		opacity: 1 !important;
+	}
+
+	.unread > .container > .unread-count {
+		background-color: #71717a !important;
+		color: #d4d4d4 !important;
+	}
+
+	.settings-btn-container #settingsButton,
+	.settings-btn-container:hover #settingsButton {
+		color: #d4d4d4 !important;
+	}
+
+	.tab-icon-image {
+		stroke: none !important;
+	}
+
+	.infobar.animated:not([value="maybeScam"]) .notification-button.small-button.footer-button.button-menu-list {
+		background-color: #3a3a3a !important;
+	}
+
+	/* ===== TODAY PANE — DARK MODE ===== */
+
+	#today-pane-panel {
+		background-color: #2b2b2b !important;
+		border-left: 1px solid #3a3a3a !important;
+	}
+
+	#today-pane-panel .sidebar-header {
+		background-color: #333333 !important;
+		border-bottom: 1px solid #3a3a3a !important;
+		padding: 4px 8px !important;
+	}
+
+	#today-pane-header {
+		color: #d4d4d4 !important;
+		font-weight: 500 !important;
+	}
+
+	.today-pane-cycler {
+		border-radius: 4px !important;
+		padding: 2px 4px !important;
+	}
+
+	.today-pane-cycler:hover {
+		background-color: #3a3a3a !important;
+	}
+
+	#today-closer {
+		border-radius: 4px !important;
+	}
+
+	#today-closer:hover {
+		background-color: #3a3a3a !important;
+	}
+
+	.today-subpane {
+		border-radius: 6px !important;
+		margin: 4px !important;
+		padding: 6px !important;
+		background-color: #1c1c1c !important;
+		border: 1px solid #3a3a3a !important;
+	}
+
+	#today-minimonth-box {
+		border-radius: 6px !important;
+		margin: 4px !important;
+		padding: 6px !important;
+		background-color: #1c1c1c !important;
+		border: 1px solid #3a3a3a !important;
+	}
+
+	#agenda-panel {
+		background-color: transparent !important;
+	}
+
+	#agenda-panel .agenda-listitem {
+		border-radius: 6px !important;
+		padding: 4px 6px !important;
+		margin: 2px 0 !important;
+	}
+
+	#agenda-panel .agenda-listitem:hover {
+		background-color: #3a3a3a !important;
+	}
+
+	/* Unread card — subtle blue tint */
+	.card-layout[data-properties~="unread"] .card-container {
+		background-color: #1e2d42 !important;
+		border-color: #2a3d55 !important;
+	}
+}
