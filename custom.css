@@ -61,6 +61,12 @@
 	border: none !important;
 }
 
+/* Status bar — match the visible top-left clip with a mirrored bottom-left curve */
+#status-bar {
+	padding-block: 0.4rem !important;
+	border-radius: 0 0 0 12px !important;
+}
+
 /* Thread card — tighter row spacing (sender row <-> subject row) */
 :root {
 	--thread-pane-container-gap: 1px !important;
@@ -171,6 +177,7 @@ window #hdrReplyListButton {
 
 	:root {
 		--lwt-accent-color: #ffffff !important;
+		--layout-border-0: #ffffff !important;
 		background-color: #ffffff !important;
 	}
 
@@ -191,6 +198,8 @@ window #hdrReplyListButton {
 	}
 
 	html #folderPane {
+		--sidebar-border-color: #f0f0f0 !important;
+		--splitter-color: #f0f0f0 !important;
 		background-color: #f0f0f0 !important;
 	}
 
@@ -319,6 +328,7 @@ window #hdrReplyListButton {
 
 	:root {
 		--lwt-accent-color: #1c1c1c !important;
+		--layout-border-0: #1c1c1c !important;
 		background-color: #1c1c1c !important;
 	}
 
@@ -339,6 +349,8 @@ window #hdrReplyListButton {
 	}
 
 	html #folderPane {
+		--sidebar-border-color: #27272a !important;
+		--splitter-color: #27272a !important;
 		background-color: #27272a !important;
 	}
 
