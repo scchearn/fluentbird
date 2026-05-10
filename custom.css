@@ -41,6 +41,11 @@
 	border-top: none !important;
 }
 
+/* Thread card row — right padding */
+#threadTree td {
+	padding-right: 8px !important;
+}
+
 /* Thread pane header bar — tighter top padding */
 .list-header-bar:not([hidden]) {
 	padding-top: 0.6rem !important;
